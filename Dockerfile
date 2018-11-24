@@ -7,10 +7,8 @@ RUN apk --no-cache add tini git openssh-client \
 #Install Caddy Server, and All Middleware
 RUN curl "https://caddyserver.com/download/linux/amd64?plugins=docker,http.expires,http.forwardproxy,http.ipfilter,http.jwt,http.login,http.realip&license=personal&telemetry=off" \
    | tar --no-same-owner -C /usr/bin/ -xz caddy
-#Copy over a default Caddyfile
 
-
-FROM scratch
+FROM alpine:3.8
 MAINTAINER zhao weiqiang<zwq00000@gmail.com>
 COPY rootfs /
 COPY --from=build /usr/bin/caddy /bin/
