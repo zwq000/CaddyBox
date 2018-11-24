@@ -14,9 +14,10 @@ FROM scratch
 MAINTAINER zhao weiqiang<zwq00000@gmail.com>
 COPY rootfs /
 COPY ./Caddyfile /etc/Caddyfile
+COPY --from=build /sbin/tini /bin/tini
 COPY --from=build /usr/bin/caddy /bin/
 EXPOSE 80 443 2015
 WORKDIR /var/www/html
 
-ENTRYPOINT ["/sbin/tini"]
+ENTRYPOINT ["/bin/tini"]
 CMD ["caddy", "-quic", "--conf", "/etc/Caddyfile"]
