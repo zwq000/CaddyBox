@@ -13,11 +13,8 @@ RUN curl "https://caddyserver.com/download/linux/amd64?plugins=docker,http.expir
 FROM scratch
 MAINTAINER zhao weiqiang<zwq00000@gmail.com>
 COPY rootfs /
-COPY ./Caddyfile /etc/Caddyfile
-COPY --from=build /sbin/tini /bin/tini
 COPY --from=build /usr/bin/caddy /bin/
 EXPOSE 80 443 2015
 WORKDIR /var/www/html
 
-ENTRYPOINT ["/bin/tini"]
-CMD ["caddy", "-quic", "--conf", "/etc/Caddyfile"]
+CMD ["/bin/caddy", "-quic", "--conf", "/etc/Caddyfile"]
